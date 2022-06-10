@@ -13,6 +13,9 @@
   font-weight: 1000;
   font-size: 2vh;
 }
+.makeNoteBtn:active {
+  transform: scale(0.95);
+}
 .Notetext {
   background: var(--p-grey);
   border-radius: 0.5rem;

@@ -15,6 +15,10 @@
   flex: 1;
   font-size: 2vh;
 }
+.makeTabBtn:active {
+  transform: scale(0.95);
+}
+
 .Tabtext {
   background: var(--p-grey);
   margin: 0.5rem;

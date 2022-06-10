@@ -5,9 +5,17 @@ function Input() {
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     setNote(e.target.value);
   }
-
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log(note);
+  }
   return (
-    <form className="Noteinput">
+    <form
+      className="Noteinput"
+      onSubmit={(e) => {
+        handleSubmit(e);
+      }}
+    >
       <input
         className="Notetext"
         type="text"

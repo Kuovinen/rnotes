@@ -5,8 +5,17 @@ function Menu() {
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     setNote(e.target.value);
   }
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log(note);
+  }
   return (
-    <form className="menu">
+    <form
+      className="menu"
+      onSubmit={(e) => {
+        handleSubmit(e);
+      }}
+    >
       <input
         type="text"
         className="Tabtext"
