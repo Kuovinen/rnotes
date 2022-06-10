@@ -31,6 +31,8 @@
   border: none;
   background: var(--p-green);
   font-weight: bold;
+  cursor: pointer;
+  user-select: none;
 }
 .deleteNote:active {
   transform: scale(0.8);

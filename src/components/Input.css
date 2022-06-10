@@ -12,6 +12,8 @@
   margin-left: 2rem;
   font-weight: 1000;
   font-size: 2vh;
+  cursor: pointer;
+  user-select: none;
 }
 .makeNoteBtn:active {
   transform: scale(0.95);
