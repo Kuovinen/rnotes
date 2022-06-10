@@ -1,1 +1,6 @@
-
+.App {
+  background: var(--p-black);
+  height: 100vh;
+  width: 100vw;
+  min-width: 320px;
+}

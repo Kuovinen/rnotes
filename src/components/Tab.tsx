@@ -1,8 +1,9 @@
 import Input from "./Input";
+import Notes from "./Notes";
 export default function Tab() {
   return (
     <div className="main">
-      <div className="notes"></div>
+      <Notes />
       <Input />
     </div>
   );

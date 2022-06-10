@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 1.5rem;
+  font-weight: 1000;
 }
 
 code {
@@ -13,8 +15,8 @@ code {
 }
 
 :root {
-  p-green: #3cc130;
-  p-black: #181616;
-  p-white: #ebebeb;
-  p-grey: #afb5b1;
+  --p-green: #3cc130;
+  --p-black: #181616;
+  --p-white: #ebebeb;
+  --p-grey: #afb5b1;
 }

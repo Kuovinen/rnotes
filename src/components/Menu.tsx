@@ -1,7 +1,10 @@
-export default function Menu() {
+import "./Menu.css";
+function Menu() {
   return (
-    <div className="menu">
-      <div className="makeTabBtn">NEW TAB</div>
-    </div>
+    <form className="menu">
+      <input type="text" className="Tabtext" />
+      <button className="makeTabBtn">NEW TAB</button>
+    </form>
   );
 }
+export default Menu;
