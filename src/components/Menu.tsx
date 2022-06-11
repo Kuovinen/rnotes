@@ -5,9 +5,12 @@ function Menu() {
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     setNote(e.target.value);
   }
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(note);
+
+    const response = await fetch("http://localhost:4000/addtab");
+    const data = await response.text();
+    console.log(data);
   }
   return (
     <form

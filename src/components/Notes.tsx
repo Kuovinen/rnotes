@@ -7,8 +7,11 @@ interface props1 {
 function Note(props: props1) {
   const id: string = "1";
 
-  function handleDelete(id: string) {
+  async function handleDelete(id: string) {
     console.log("Should delete:" + id);
+    const response = await fetch("http://localhost:4000/removenote");
+    const data = await response.text();
+    console.log(data);
   }
   return (
     <div className="note">
