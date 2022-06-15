@@ -7,7 +7,14 @@ function Input() {
   }
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const response = await fetch("http://localhost:4000/addnote");
+    const response = await fetch("http://localhost:4000/addnote", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ payload: note }),
+    });
     const data = await response.text();
     console.log(data);
   }

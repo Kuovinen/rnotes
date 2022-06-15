@@ -1,14 +1,21 @@
 import React from "react";
 import "./Menu.css";
 function Menu() {
-  const [note, setNote] = React.useState<string>("");
+  const [tabName, setTabName] = React.useState<string>("");
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
-    setNote(e.target.value);
+    setTabName(e.target.value);
   }
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:4000/addtab");
+    const response = await fetch("http://localhost:4000/addtab", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ payload: tabName }),
+    });
     const data = await response.text();
     console.log(data);
   }
@@ -22,7 +29,7 @@ function Menu() {
       <input
         type="text"
         className="Tabtext"
-        value={note}
+        value={tabName}
         onChange={(e) => handleInput(e)}
       />
       <button className="makeTabBtn">NEW TAB</button>
