@@ -24,16 +24,18 @@ function Note(props: props1) {
     </div>
   );
 }
-
-function Input() {
+interface props2 {
+  notes: string[];
+}
+function Notes(props: props2) {
   //temp notes should be the App's prop or maybe even move the whole future fetch request into this element.
-  const [tempNotes, setTempNotes] = React.useState<string[]>(["one", "two"]);
+
   return (
     <div className="Notes">
-      {tempNotes.map((element, index) => {
-        return <Note key={index} txt={"My text " + element} />;
+      {props.notes.map((element, index) => {
+        return <Note key={index} txt={element} />;
       })}
     </div>
   );
 }
-export default Input;
+export default Notes;
