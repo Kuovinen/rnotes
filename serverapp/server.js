@@ -20,6 +20,7 @@ async function accessDb() {
     const collectionNames = currentCollections.map((element) => element.name);
     return collectionNames;
   }
+  /*  THIS WILL BE THE GET NOTES
   app.get("/", (req, res) => {
     db.collection("notes")
       .find()
@@ -30,6 +31,12 @@ async function accessDb() {
       })
       .catch((error) => console.error(error));
 
+    // ...
+  });*/
+
+  app.get("/", async (req, res) => {
+    console.log(await getNames());
+    res.send(JSON.stringify(await getNames()));
     // ...
   });
   //Add tab
