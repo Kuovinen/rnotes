@@ -4,9 +4,11 @@ import Menu from "./components/Menu";
 import Main from "./components/Main";
 import Tabs from "./components/Tabs";
 function App() {
+  console.log("render APP!----------------");
   const [notes, setNotes] = React.useState<string[]>([]);
   const [tabs, setTabs] = React.useState<string[]>([]);
   const currentTab = React.useRef("notes");
+  const initialRender = React.useRef(true);
   async function getDBdata() {
     const response = await fetch("http://localhost:4000/");
     const data = await response.text();
@@ -17,7 +19,10 @@ function App() {
     setTabs(() => [...parsedData]);
   }
   React.useEffect(() => {
-    getDBdata();
+    if (initialRender.current) {
+      getDBdata();
+      initialRender.current = false;
+    }
   }, []);
 
   return (
