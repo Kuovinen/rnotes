@@ -13,7 +13,13 @@ async function accessDb() {
   const client = await MongoClient.connect(connectionString);
   const db = await client.db("rnotes");
   const notes = db.collection("notes");
-
+  const music = db.collection("music");
+  async function getNames() {
+    //get collection names
+    const currentCollections = await db.listCollections().toArray();
+    const collectionNames = currentCollections.map((element) => element.name);
+    return collectionNames;
+  }
   app.get("/", (req, res) => {
     db.collection("notes")
       .find()
@@ -27,9 +33,15 @@ async function accessDb() {
     // ...
   });
   //Add tab
-  app.post("/addtab", (req, res) => {
-    console.log(req.body.payload);
-    res.send("adding tab");
+  app.post("/addtab", async (req, res) => {
+    const collectionNames = await getNames();
+    //make collection if not in list already
+    if (!collectionNames.includes(req.body.payload)) {
+      db.createCollection(req.body.payload);
+      res.send("adding tab:" + req.body.payload);
+    } else {
+      res.send("collection seems to already exist");
+    }
   });
   //Add note
   app.post("/addnote", (req, res) => {
