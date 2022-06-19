@@ -46,7 +46,7 @@ async function accessDb() {
   });
   //Add note
   app.post("/addnote", (req, res) => {
-    notes
+    db.collection(req.body.tab)
       .insertOne(req.body)
       .then((result) => {
         console.log(result);
