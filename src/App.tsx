@@ -11,12 +11,16 @@ function App() {
     const response = await fetch("http://localhost:4000/");
     const data = await response.text();
     const parsedData = JSON.parse(data);
+    console.log("got initial data:");
     console.log(parsedData);
-    setNotes((notes) => [
+    /* USE THIS FOR NOT LIST LATER
+    setTabs(() => [
       ...parsedData.map(
         (element: { _id: any; payload: string }) => element.payload
       ),
     ]);
+    */
+    setTabs(() => [...parsedData]);
   }
   React.useEffect(() => {
     getDBdata();
@@ -25,7 +29,7 @@ function App() {
   return (
     <div className="App">
       <Menu />
-      <Tabs />
+      <Tabs tabs={tabs} />
       <Main notes={notes} />
     </div>
   );
