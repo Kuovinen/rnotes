@@ -1,6 +1,13 @@
 import React from "react";
 import "./Input.css";
-function Input() {
+interface ref {
+  current: string;
+}
+interface props {
+  currentTab: ref;
+}
+
+function Input(props: props) {
   const [note, setNote] = React.useState<string>("");
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     setNote(e.target.value);
@@ -13,7 +20,7 @@ function Input() {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ payload: note }),
+      body: JSON.stringify({ payload: note, tab: props.currentTab.current }),
     });
     const data = await response.text();
     console.log(data);

@@ -2,13 +2,16 @@ import "./Tabs.css";
 interface props {
   tabs: string[];
   setNotes: React.Dispatch<React.SetStateAction<string[]>>;
+  currentTab: { current: string };
 }
 interface props2 {
   title: string;
   setNotes: React.Dispatch<React.SetStateAction<string[]>>;
+  currentTab: { current: string };
 }
 function Tab(props: props2) {
   async function getList() {
+    props.currentTab.current = props.title;
     const response = await fetch("http://localhost:4000/getnotes", {
       method: "POST",
       headers: {
@@ -40,13 +43,23 @@ function Tabs(props: props) {
   return (
     <div className="carousel">
       <div className="Tabs">
-        {props.tabs.map((element) => (
-          <Tab title={element} setNotes={props.setNotes} />
+        {props.tabs.map((element, index) => (
+          <Tab
+            key={index}
+            title={element}
+            setNotes={props.setNotes}
+            currentTab={props.currentTab}
+          />
         ))}
       </div>
       <div className="Tabs">
-        {props.tabs.map((element) => (
-          <Tab title={element} setNotes={props.setNotes} />
+        {props.tabs.map((element, index) => (
+          <Tab
+            key={index + 2}
+            title={element}
+            setNotes={props.setNotes}
+            currentTab={props.currentTab}
+          />
         ))}
       </div>
     </div>
