@@ -13,13 +13,7 @@ function App() {
     const parsedData = JSON.parse(data);
     console.log("got initial data:");
     console.log(parsedData);
-    /* USE THIS FOR NOT LIST LATER
-    setTabs(() => [
-      ...parsedData.map(
-        (element: { _id: any; payload: string }) => element.payload
-      ),
-    ]);
-    */
+
     setTabs(() => [...parsedData]);
   }
   React.useEffect(() => {
@@ -29,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <Menu />
-      <Tabs tabs={tabs} />
+      <Tabs tabs={tabs} setNotes={setNotes} />
       <Main notes={notes} />
     </div>
   );
