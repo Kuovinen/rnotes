@@ -13,7 +13,6 @@ function App() {
     const parsedData = JSON.parse(data);
     console.log(parsedData);
     setNotes((notes) => [
-      ...notes,
       ...parsedData.map(
         (element: { _id: any; payload: string }) => element.payload
       ),
