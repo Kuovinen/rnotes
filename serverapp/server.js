@@ -1,14 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const MongoClient = require("mongodb").MongoClient;
+require("dotenv").config({ path: "./credentials.env" });
 
 const app = express();
 const port = process.env.PORT || 4000;
 app.use(express.json());
 app.use(cors());
 
-const connectionString =
-  "mongodb+srv://XXX:YYY@cluster0.u1ysblp.mongodb.net/?retryWrites=true&w=majority";
+const connectionString = `mongodb+srv://${process.env.USRNM}:${process.env.PSWD}@cluster0.u1ysblp.mongodb.net/?retryWrites=true&w=majority`;
 async function accessDb() {
   const client = await MongoClient.connect(connectionString);
   const db = await client.db("rnotes");
