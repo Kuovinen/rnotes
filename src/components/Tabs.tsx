@@ -1,17 +1,20 @@
 import "./Tabs.css";
-
-function Tabs() {
+interface props {
+  tabs: string[];
+}
+function Tabs(props: props) {
+  console.log(props.tabs);
   return (
     <div className="carousel">
       <div className="Tabs">
-        <div className="tab">MUSIC</div>
-        <div className="tab">CODE</div>
-        <div className="tab">NOTES</div>
+        {props.tabs.map((element) => (
+          <div className="tab">{element}</div>
+        ))}
       </div>
       <div className="Tabs">
-        <div className="tab">MUSIC</div>
-        <div className="tab">CODE</div>
-        <div className="tab">NOTES</div>
+        {props.tabs.map((element) => (
+          <div className="tab">{element}</div>
+        ))}
       </div>
     </div>
   );
