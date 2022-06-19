@@ -10,7 +10,6 @@ function Main(props: props) {
   return (
     <main className="main">
       <Notes notes={props.notes} />
-      <Note />
       <Input />
     </main>
   );
