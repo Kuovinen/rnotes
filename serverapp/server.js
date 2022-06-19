@@ -20,25 +20,19 @@ async function accessDb() {
     const collectionNames = currentCollections.map((element) => element.name);
     return collectionNames;
   }
-  /*  THIS WILL BE THE GET NOTES
-  app.get("/", (req, res) => {
-    db.collection("notes")
-      .find()
-      .toArray()
-      .then((results) => {
-        console.log(results);
-        res.send(JSON.stringify(results));
-      })
-      .catch((error) => console.error(error));
-
-    // ...
-  });*/
-
   app.get("/", async (req, res) => {
-    console.log(await getNames());
     res.send(JSON.stringify(await getNames()));
     // ...
   });
+  app.post("/getnotes", async (req, res) => {
+    //check if collection is among the ones present
+    const collections = await getNames();
+    if (collections.includes(req.body.payload)) {
+      const notes = await db.collection(req.body.payload).find().toArray();
+      res.send(JSON.stringify(notes));
+    }
+  });
+
   //Add tab
   app.post("/addtab", async (req, res) => {
     const collectionNames = await getNames();
