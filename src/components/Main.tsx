@@ -14,7 +14,7 @@ function Main(props: props) {
   console.log("render -------MAIN");
   return (
     <main className="main">
-      <Notes notes={props.notes} />
+      <Notes notes={props.notes} currentTab={props.currentTab} />
       <Input currentTab={props.currentTab} />
     </main>
   );

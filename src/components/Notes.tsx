@@ -4,6 +4,7 @@ interface props1 {
   key: string;
   id: string;
   txt: string;
+  cur: { current: string };
 }
 interface note {
   _id: string;
@@ -11,8 +12,17 @@ interface note {
 }
 function Note(props: props1) {
   async function handleDelete(id: string) {
-    console.log("Should delete: " + id);
-    const response = await fetch("http://localhost:4000/removenote");
+    console.log("Should delete: " + id + "from" + props.cur.current);
+    const response = await fetch(
+      `http://localhost:4000/removenote/${props.cur.current}/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await response.text();
     console.log(data);
   }
@@ -29,6 +39,7 @@ function Note(props: props1) {
 }
 interface props2 {
   notes: note[];
+  currentTab: { current: string };
 }
 function Notes(props: props2) {
   //temp notes should be the App's prop or maybe even move the whole future fetch request into this element.
@@ -37,7 +48,12 @@ function Notes(props: props2) {
     <div className="Notes">
       {props.notes.map((element: note) => {
         return (
-          <Note key={element._id} id={element._id} txt={element.payload} />
+          <Note
+            key={element._id}
+            id={element._id}
+            txt={element.payload}
+            cur={props.currentTab}
+          />
         );
       })}
     </div>
