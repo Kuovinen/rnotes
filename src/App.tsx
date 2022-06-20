@@ -5,7 +5,9 @@ import Main from "./components/Main";
 import Tabs from "./components/Tabs";
 function App() {
   console.log("render APP!----------------");
-  const [notes, setNotes] = React.useState<string[]>([]);
+  const [notes, setNotes] = React.useState<{ _id: string; payload: string }[]>(
+    []
+  );
   const [tabs, setTabs] = React.useState<string[]>([]);
   const currentTab = React.useRef("notes");
   const initialRender = React.useRef(true);

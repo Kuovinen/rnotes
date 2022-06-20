@@ -7,10 +7,11 @@ interface ref {
 }
 
 interface props {
-  notes: string[];
+  notes: { _id: string; payload: string }[];
   currentTab: ref;
 }
 function Main(props: props) {
+  console.log("render -------MAIN");
   return (
     <main className="main">
       <Notes notes={props.notes} />

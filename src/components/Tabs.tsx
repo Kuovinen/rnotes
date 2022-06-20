@@ -1,12 +1,16 @@
 import "./Tabs.css";
 interface props {
   tabs: string[];
-  setNotes: React.Dispatch<React.SetStateAction<string[]>>;
+  setNotes: React.Dispatch<
+    React.SetStateAction<{ _id: string; payload: string }[]>
+  >;
   currentTab: { current: string };
 }
 interface props2 {
   title: string;
-  setNotes: React.Dispatch<React.SetStateAction<string[]>>;
+  setNotes: React.Dispatch<
+    React.SetStateAction<{ _id: string; payload: string }[]>
+  >;
   currentTab: { current: string };
 }
 function Tab(props: props2) {
@@ -24,11 +28,7 @@ function Tab(props: props2) {
     const parsedData = JSON.parse(data);
     console.log("got new notes");
     console.log(parsedData);
-    props.setNotes(() => [
-      ...parsedData.map(
-        (element: { _id: any; payload: string }) => element.payload
-      ),
-    ]);
+    props.setNotes(() => [...parsedData]);
   }
 
   return (
@@ -39,7 +39,7 @@ function Tab(props: props2) {
 }
 
 function Tabs(props: props) {
-  console.log(props.tabs);
+  console.log("render TABS");
   return (
     <div className="carousel">
       <div className="Tabs">

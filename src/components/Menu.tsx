@@ -1,6 +1,7 @@
 import React from "react";
 import "./Menu.css";
 function Menu() {
+  console.log("render MENU");
   const [tabName, setTabName] = React.useState<string>("");
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     setTabName(e.target.value);
