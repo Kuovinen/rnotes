@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const MongoClient = require("mongodb").MongoClient;
+const { MongoClient, ObjectId } = require("mongodb");
+
 require("dotenv").config({ path: "./credentials.env" });
 
 const app = express();
@@ -12,8 +13,6 @@ const connectionString = `mongodb+srv://${process.env.USRNM}:${process.env.PSWD}
 async function accessDb() {
   const client = await MongoClient.connect(connectionString);
   const db = await client.db("rnotes");
-  const notes = db.collection("notes");
-  const music = db.collection("music");
   async function getNames() {
     //get collection names
     const currentCollections = await db.listCollections().toArray();
@@ -56,8 +55,17 @@ async function accessDb() {
     res.send("added note" + req.body.payload);
   });
   //Remove note
-  app.get("/removenote", (req, res) => {
-    res.send("removeing note");
+  app.delete("/removenote/:tab/:id", async (req, res) => {
+    const collectionNames = await getNames();
+    if (collectionNames.includes(req.params.tab)) {
+      console.log(req.params);
+      res.send("removeing note: " + req.params.id + " from: " + req.params.tab);
+      const result = await db
+        .collection(req.params.tab)
+        .deleteOne({ _id: new ObjectId(req.params.id) });
+
+      console.log(result);
+    }
   });
 
   app.listen(port, () => {
