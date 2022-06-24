@@ -3,6 +3,7 @@
   margin: 0 1rem;
   border-radius: 0.5rem;
   display: flex;
+  margin-bottom: 1rem;
 }
 .makeNoteBtn {
   background: var(--p-green);
@@ -11,9 +12,10 @@
   flex: 1;
   margin-left: 2rem;
   font-weight: 1000;
-  font-size: 2vh;
+  font-size: 2rem;
   cursor: pointer;
   user-select: none;
+  color: var(--p-white);
 }
 .makeNoteBtn:active {
   transform: scale(0.95);

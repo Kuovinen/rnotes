@@ -39,7 +39,7 @@ function Input(props: props) {
         onChange={(e) => handleInput(e)}
       />
       <button type="submit" className="makeNoteBtn">
-        MAKE NOTE
+        + NOTE
       </button>
     </form>
   );
