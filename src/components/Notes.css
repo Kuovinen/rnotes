@@ -2,9 +2,10 @@
   background: var(--p-grey);
   border-radius: 0.5rem;
   margin: 1rem;
-  height: 78%;
+  max-height: 35rem;
   width: auto;
   overflow-x: hidden;
+  box-shadow: 0 0.2rem 0.5rem 0.01rem var(--p-shadow) inset;
 }
 .note {
   background: var(--p-white);
@@ -15,6 +16,10 @@
   font-weight: 400;
   display: flex;
   justify-content: space-between;
+  box-shadow: 0 0.2rem 0.5rem 0.01rem var(--p-shadow);
+}
+.note:hover {
+  filter: brightness(1.1);
 }
 .nTxt {
   flex: 9;
@@ -36,4 +41,8 @@
 }
 .deleteNote:active {
   transform: scale(0.8);
+}
+.deleteNote:hover {
+  filter: brightness(1.05);
+  color: var(--p-black);
 }

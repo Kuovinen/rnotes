@@ -5,3 +5,22 @@
   min-width: 320px;
   overflow-x: hidden;
 }
+/* width */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--p-black);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--p-white);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

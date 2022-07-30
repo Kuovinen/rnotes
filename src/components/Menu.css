@@ -1,16 +1,22 @@
 .menu {
   background: var(--p-white);
-  height: 5rem;
+  min-height: 4rem;
+  max-height: 10rem;
   width: 94vw;
   margin: 0 auto;
   border-radius: 1rem;
   display: flex;
+  flex-flow: row wrap;
+  padding: 0.5rem;
+  gap: 1rem;
+  min-width: 300px;
+  box-sizing: border-box;
 }
 .makeTabBtn {
   background: var(--p-green);
   border: none;
   font-weight: 1000;
-  margin: 0.5rem 1rem;
+
   border-radius: 0.5rem;
   flex: 1;
   font-size: 2vh;
@@ -21,14 +27,16 @@
 .makeTabBtn:active {
   transform: scale(0.95);
 }
-
+.makeTabBtn:hover {
+  filter: brightness(1.05);
+}
 .Tabtext {
   background: var(--p-grey);
-  margin: 0.5rem;
-  margin-left: 1rem;
+  box-shadow: 0 0.2rem 0.5rem 0.01rem var(--p-shadow) inset;
   border-radius: 0.5rem;
   border: none;
-  flex: 5;
+  min-width: 15rem;
+  flex: 3;
   font-size: 2rem;
   padding-left: 1rem;
 }

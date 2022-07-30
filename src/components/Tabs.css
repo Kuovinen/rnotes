@@ -1,6 +1,6 @@
 .Tabs {
   margin: 0.5rem 0;
-  height: 4rem;
+  height: 3rem;
   position: relative;
   width: 50%;
   display: flex;
@@ -20,12 +20,12 @@
   user-select: none;
 }
 .tab:hover {
-  outline: 0.4rem solid var(--p-green);
+  background: var(--p-green);
 }
 .carousel {
   position: relative;
   display: inline-flex;
-  height: 5rem;
+  height: 4rem;
 }
 .carousel::-webkit-scrollbar {
   display: none;
