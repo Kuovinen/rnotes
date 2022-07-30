@@ -26,6 +26,7 @@ ____________________________________________________________________ FUNCTIONS*/
     setTabs(() => [...parsedData]);
     //if the tabs list came non empy, use first value to request it's notes
     if (parsedData.length > 0) {
+      currentTab.current = parsedData[0];
       getList(parsedData[0]);
     }
   }
