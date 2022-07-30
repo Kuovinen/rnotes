@@ -39,11 +39,12 @@ function Input(props: props) {
       <input
         className="Notetext"
         type="text"
+        placeholder="Write new note here"
         value={note}
         onChange={(e) => handleInput(e)}
       />
       <button type="submit" className="makeNoteBtn">
-        NEW NOTE
+        SAVE NOTE
       </button>
     </form>
   );

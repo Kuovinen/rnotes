@@ -7,7 +7,7 @@ function Menu() {
     setTabName(e.target.value);
   }
   /*____________________________________________________________________________
-  _____________________________________________________________________ FUNCTIONS*/
+  __________________________________________________________________ FUNCTIONS*/
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -33,11 +33,12 @@ function Menu() {
     >
       <input
         type="text"
+        placeholder="Input new category"
         className="Tabtext"
         value={tabName}
         onChange={(e) => handleInput(e)}
       />
-      <button className="makeTabBtn">NEW TAB</button>
+      <button className="makeTabBtn">MAKE TAB</button>
     </form>
   );
 }
