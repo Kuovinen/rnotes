@@ -6,6 +6,8 @@ function Menu() {
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     setTabName(e.target.value);
   }
+  /*____________________________________________________________________________
+  _____________________________________________________________________ FUNCTIONS*/
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -20,6 +22,8 @@ function Menu() {
     const data = await response.text();
     console.log(data);
   }
+  /*____________________________________________________________________________
+  _____________________________________________________________________ RETURN*/
   return (
     <form
       className="menu"

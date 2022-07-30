@@ -17,7 +17,8 @@ interface props2 {
   currentTab: { current: string };
 }
 
-//TAB COMPONENTS------------------------------------------------------------
+/*______________________________________________________________________________
+________________________________________________________________________ TAB COMPONENT*/
 function Tab(props: props2) {
   async function getList() {
     props.currentTab.current = props.title;
@@ -42,7 +43,8 @@ function Tab(props: props2) {
     </div>
   );
 }
-//TABS COMPONENTS------------------------------------------------------------
+/*______________________________________________________________________________
+_____________________________________________________ TABS CONTAINER COMPONENT*/
 function Tabs(props: props) {
   const initX = React.useRef<number>(0);
   const lefTabs = React.useRef<HTMLDivElement>(null);
@@ -52,7 +54,8 @@ function Tabs(props: props) {
   const width = (window as any).innerWidth;
   console.log("rerendered TANS, current X is : " + `${x}px`);
   const caru = React.useRef<HTMLDivElement>(null);
-
+  /*____________________________________________________________________________
+  __________________________________________________________________ FUNCTIONS*/
   //on click down define init X and thus alow movement defined in handler
   function handleBeginDrag(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     e.stopPropagation();
@@ -84,6 +87,8 @@ function Tabs(props: props) {
       }
     }
   }
+  /*____________________________________________________________________________
+  ____________________________________________________________________ EFFECTS*/
   //use effect EventListener and cleaner for the caurusel element.
   React.useEffect(() => {
     caru.current?.addEventListener("mousemove", (e) => {
@@ -103,7 +108,8 @@ function Tabs(props: props) {
       initialRender.current = false;
     }
   });
-  //RETURN-------------------------------------------------------------------
+  /*____________________________________________________________________________
+  _____________________________________________________________________ RETURN*/
   return (
     <div
       className="carousel"

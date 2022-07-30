@@ -9,6 +9,8 @@ interface props {
 
 function Input(props: props) {
   const [note, setNote] = React.useState<string>("");
+  /*____________________________________________________________________________
+  __________________________________________________________________ FUNCTIONS*/
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     setNote(e.target.value);
   }
@@ -25,6 +27,8 @@ function Input(props: props) {
     const data = await response.text();
     console.log(data);
   }
+  /*____________________________________________________________________________
+  _____________________________________________________________________ RETURN*/
   return (
     <form
       className="Noteinput"
@@ -39,7 +43,7 @@ function Input(props: props) {
         onChange={(e) => handleInput(e)}
       />
       <button type="submit" className="makeNoteBtn">
-        + NOTE
+        NEW NOTE
       </button>
     </form>
   );

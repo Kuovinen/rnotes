@@ -10,6 +10,8 @@ interface note {
   _id: string;
   payload: string;
 }
+/*______________________________________________________________________________
+__________________________________________________________________ SINGLE NOTE*/
 function Note(props: props1) {
   async function handleDelete(id: string) {
     console.log("Should delete: " + id + "from" + props.cur.current);
@@ -26,6 +28,8 @@ function Note(props: props1) {
     const data = await response.text();
     console.log(data);
   }
+  /*______________________________________________________________________________
+__________________________________________________________________ NOTE RETURN*/
   return (
     <div className="note">
       <div className="nTxt">{props.txt}</div>
@@ -41,9 +45,11 @@ interface props2 {
   notes: note[];
   currentTab: { current: string };
 }
-function Notes(props: props2) {
-  //temp notes should be the App's prop or maybe even move the whole future fetch request into this element.
 
+/*______________________________________________________________________________
+______________________________________________________________ NOTES COMPONENT*/
+
+function Notes(props: props2) {
   return (
     <div className="Notes">
       {props.notes.map((element: note) => {
