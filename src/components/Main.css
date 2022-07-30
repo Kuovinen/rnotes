@@ -1,11 +1,13 @@
 .main {
   background: var(--p-white);
   min-height: 60vh;
-
   width: 94vw;
   margin: 0 auto;
   border-radius: 1rem;
   overflow: auto;
   overflow-y: hidden;
   min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
