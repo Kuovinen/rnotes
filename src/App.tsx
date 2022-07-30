@@ -61,7 +61,7 @@ _______________________________________________________________________ RETURN*/
     <div className="App">
       <Menu />
       <Tabs tabs={tabs} setNotes={setNotes} currentTab={currentTab} />
-      <Main notes={notes} currentTab={currentTab} />
+      <Main notes={notes} currentTab={currentTab} setNotes={setNotes} />
     </div>
   );
 }

@@ -5,6 +5,9 @@ interface ref {
 }
 interface props {
   currentTab: ref;
+  setNotes: React.Dispatch<
+    React.SetStateAction<{ _id: string; payload: string }[]>
+  >;
 }
 
 function Input(props: props) {
@@ -26,6 +29,22 @@ function Input(props: props) {
     });
     const data = await response.text();
     console.log(data);
+    await getList();
+  }
+  async function getList() {
+    const response = await fetch("http://localhost:4000/getnotes", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ payload: props.currentTab.current }),
+    });
+    const data = await response.text();
+    const parsedData = JSON.parse(data);
+    console.log("got new notes");
+    console.log(parsedData);
+    props.setNotes(() => [...parsedData]);
   }
   /*____________________________________________________________________________
   _____________________________________________________________________ RETURN*/

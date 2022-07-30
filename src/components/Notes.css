@@ -2,7 +2,7 @@
   background: var(--p-grey);
   border-radius: 0.5rem;
   margin: 1rem;
-  max-height: 35rem;
+  max-height: 60vh;
   width: auto;
   overflow-x: hidden;
   box-shadow: 0 0.2rem 0.5rem 0.01rem var(--p-shadow) inset;
