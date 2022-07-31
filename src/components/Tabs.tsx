@@ -47,6 +47,7 @@ function Tab(props: props2) {
 _____________________________________________________ TABS CONTAINER COMPONENT*/
 function Tabs(props: props) {
   const initialX = React.useRef<number>(0); //starting x position of carusel
+
   //starting x position of carusel
   const caruselIsMovable = React.useRef<boolean>(false);
   //the curesel container DOM Elem
@@ -55,6 +56,7 @@ function Tabs(props: props) {
   const lefTabs = React.useRef<HTMLDivElement>(null);
   //current carusel X position
   const [caruselX, setCaruselX] = React.useState<number>(0);
+  const listenerX = React.useRef<number>(0); //same value as above to keep track
   const windowWidth = (window as any).innerWidth; //device width
 
   /*____________________________________________________________________________
@@ -69,18 +71,35 @@ function Tabs(props: props) {
   //handler callback function, look below for the handler in the useEffect
   function moveCarusel(e: MouseEvent) {
     e.stopPropagation();
+    //console.log(caruselX);
     //if initial click position isn't 0, then I clicked
     if (caruselIsMovable.current) {
       const currentX: number = (window as any).event.clientX; //cursor positoon
       const deltaX = currentX - initialX.current; //amount mouse traveled
+      const speed = 10; //pixels per render
       setCaruselX((caruselX) => {
-        return deltaX > 0 ? caruselX + 1 : caruselX - 1;
+        return deltaX > 0 ? caruselX + speed : caruselX - speed;
       });
-      /*if (caruselX < -windowWidth) {
-        console.log("X is less than WIDTH!!!");
-        setX(0);
-        listenerX.current = 0;
-      }*/
+      listenerX.current =
+        deltaX > 0 ? listenerX.current + speed : listenerX.current - speed;
+      console.log(listenerX.current + "/" + windowWidth);
+      if (listenerX.current >= 0) {
+        if (lefTabs && lefTabs.current) {
+          //move carusles left X amount (equal to left section width)
+          setCaruselX(-lefTabs.current.getBoundingClientRect().width);
+          listenerX.current = -lefTabs.current.getBoundingClientRect().width;
+        }
+      }
+      if (lefTabs && lefTabs.current) {
+        if (
+          listenerX.current <=
+          -lefTabs.current.getBoundingClientRect().width * 2
+        ) {
+          //move carusles left X amount (equal to left section width)
+          setCaruselX(-lefTabs.current.getBoundingClientRect().width);
+          listenerX.current = -lefTabs.current.getBoundingClientRect().width;
+        }
+      }
     }
   }
   /*____________________________________________________________________________
@@ -91,6 +110,7 @@ function Tabs(props: props) {
       if (initialRender.current && lefTabs && lefTabs.current) {
         //move carusles left X amount (equal to left section width)
         setCaruselX(-lefTabs.current.getBoundingClientRect().width);
+        listenerX.current = -lefTabs.current.getBoundingClientRect().width;
       }
       initialRender.current = false;
     }
