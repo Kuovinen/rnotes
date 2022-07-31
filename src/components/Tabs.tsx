@@ -18,7 +18,7 @@ interface props2 {
 }
 
 /*______________________________________________________________________________
-________________________________________________________________________ TAB COMPONENT*/
+________________________________________________________________ TAB COMPONENT*/
 function Tab(props: props2) {
   async function getList() {
     props.currentTab.current = props.title;
@@ -46,68 +46,78 @@ function Tab(props: props2) {
 /*______________________________________________________________________________
 _____________________________________________________ TABS CONTAINER COMPONENT*/
 function Tabs(props: props) {
-  const initX = React.useRef<number>(0);
-  const lefTabs = React.useRef<HTMLDivElement>(null);
-  const initialRender = React.useRef<boolean>(true);
-  const [x, setX] = React.useState<number>(0);
-  const listenerX = React.useRef<number>(0);
-  const width = (window as any).innerWidth;
-  console.log("rerendered TANS, current X is : " + `${x}px`);
+  const initialX = React.useRef<number>(0); //starting x position of carusel
+  //starting x position of carusel
+  const caruselIsMovable = React.useRef<boolean>(false);
+  //the curesel container DOM Elem
   const caru = React.useRef<HTMLDivElement>(null);
+  const initialRender = React.useRef<boolean>(true); //trigger for useEffect
+  const lefTabs = React.useRef<HTMLDivElement>(null);
+  //current carusel X position
+  const [caruselX, setCaruselX] = React.useState<number>(0);
+  const windowWidth = (window as any).innerWidth; //device width
+
   /*____________________________________________________________________________
   __________________________________________________________________ FUNCTIONS*/
   //on click down define init X and thus alow movement defined in handler
   function handleBeginDrag(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     e.stopPropagation();
-    const boundry = caru.current?.getBoundingClientRect();
-    //get initial click position
-    initX.current = (window as any).event.clientX;
-    //console.log(boundry?.left);
-    //setX((x) => x + 20);
-  }
-  //on click UP restore X and thus DISalow movement defined in handler
-  function handleEndDrag(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    e.stopPropagation();
-    initX.current = 0;
+    initialX.current = (window as any).event.clientX;
+    caruselIsMovable.current = true;
   }
 
   //handler callback function, look below for the handler in the useEffect
-  function moveCaru(e: MouseEvent) {
+  function moveCarusel(e: MouseEvent) {
     e.stopPropagation();
     //if initial click position isn't 0, then I clicked
-    if (initX.current) {
-      const currentX = (window as any).event.clientX;
-      setX((x) => x + currentX - initX.current);
-      listenerX.current += currentX - initX.current;
-      console.log(x + "/" + listenerX.current);
-      if (listenerX.current < -width) {
+    if (caruselIsMovable.current) {
+      const currentX: number = (window as any).event.clientX; //cursor positoon
+      const deltaX = currentX - initialX.current; //amount mouse traveled
+      setCaruselX((caruselX) => {
+        return deltaX > 0 ? caruselX + 1 : caruselX - 1;
+      });
+      /*if (caruselX < -windowWidth) {
         console.log("X is less than WIDTH!!!");
         setX(0);
         listenerX.current = 0;
-      }
+      }*/
     }
   }
   /*____________________________________________________________________________
   ____________________________________________________________________ EFFECTS*/
-  //use effect EventListener and cleaner for the caurusel element.
-  React.useEffect(() => {
-    caru.current?.addEventListener("mousemove", (e) => {
-      moveCaru(e);
-    });
-    return caru.current?.removeEventListener("mousemove", (e) => {
-      moveCaru(e);
-    });
-  }, []);
   //initial carusel offset left
   React.useEffect(() => {
-    console.log(props.tabs);
     if (props.tabs.length > 0) {
       if (initialRender.current && lefTabs && lefTabs.current) {
-        setX(-lefTabs.current.getBoundingClientRect().width);
+        //move carusles left X amount (equal to left section width)
+        setCaruselX(-lefTabs.current.getBoundingClientRect().width);
       }
       initialRender.current = false;
     }
   });
+  //use effect EventListener and cleaner for window mouseUp.
+  React.useEffect(() => {
+    window.addEventListener("mouseup", () => {
+      caruselIsMovable.current = false;
+      console.log(caruselIsMovable.current);
+    });
+    return () =>
+      window.removeEventListener("mouseup", () => {
+        caruselIsMovable.current = false;
+        console.log(caruselIsMovable.current);
+      });
+  }, []);
+  //use effect EventListener and cleaner for the caurusel element movement.
+  React.useEffect(() => {
+    window.addEventListener("mousemove", (e) => {
+      moveCarusel(e);
+    });
+    return () =>
+      window.removeEventListener("mousemove", (e) => {
+        moveCarusel(e);
+      });
+  }, []);
+
   /*____________________________________________________________________________
   _____________________________________________________________________ RETURN*/
   return (
@@ -115,10 +125,9 @@ function Tabs(props: props) {
       className="carousel"
       ref={caru}
       style={{
-        left: `${x}px`,
+        left: `${caruselX}px`,
       }}
       onMouseDown={(e) => handleBeginDrag(e)}
-      onMouseUp={(e) => handleEndDrag(e)}
     >
       <div className="Tabs" ref={lefTabs}>
         {props.tabs.map((element, index) => (
