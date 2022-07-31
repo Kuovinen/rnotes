@@ -31,6 +31,8 @@ function Input(props: props) {
     console.log(data);
     await getList();
   }
+
+  //used in handle submit to get data and rerender the new notes list
   async function getList() {
     const response = await fetch("http://localhost:4000/getnotes", {
       method: "POST",

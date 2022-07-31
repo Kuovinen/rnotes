@@ -5,6 +5,9 @@ interface props1 {
   id: string;
   txt: string;
   cur: { current: string };
+  setNotes: React.Dispatch<
+    React.SetStateAction<{ _id: string; payload: string }[]>
+  >;
 }
 interface note {
   _id: string;
@@ -27,6 +30,23 @@ function Note(props: props1) {
     );
     const data = await response.text();
     console.log(data);
+    await getList();
+  }
+  //used in handle submit to get data and rerender the new notes list
+  async function getList() {
+    const response = await fetch("http://localhost:4000/getnotes", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ payload: props.cur.current }),
+    });
+    const data = await response.text();
+    const parsedData = JSON.parse(data);
+    console.log("got new notes");
+    console.log(parsedData);
+    props.setNotes(() => [...parsedData]);
   }
   /*______________________________________________________________________________
 __________________________________________________________________ NOTE RETURN*/
@@ -44,6 +64,9 @@ __________________________________________________________________ NOTE RETURN*/
 interface props2 {
   notes: note[];
   currentTab: { current: string };
+  setNotes: React.Dispatch<
+    React.SetStateAction<{ _id: string; payload: string }[]>
+  >;
 }
 
 /*______________________________________________________________________________
@@ -59,6 +82,7 @@ function Notes(props: props2) {
             id={element._id}
             txt={element.payload}
             cur={props.currentTab}
+            setNotes={props.setNotes}
           />
         );
       })}
