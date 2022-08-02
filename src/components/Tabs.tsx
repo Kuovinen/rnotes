@@ -76,7 +76,7 @@ function Tabs(props: props) {
     if (caruselIsMovable.current) {
       const currentX: number = (window as any).event.clientX; //cursor positoon
       const deltaX = currentX - initialX.current; //amount mouse traveled
-      const speed = 10; //pixels per render
+      const speed = 7; //pixels per render
       setCaruselX((caruselX) => {
         return deltaX > 0 ? caruselX + speed : caruselX - speed;
       });
@@ -127,13 +127,35 @@ function Tabs(props: props) {
         console.log(caruselIsMovable.current);
       });
   }, []);
-  //use effect EventListener and cleaner for the caurusel element movement.
+  //use effect EventListener and cleaner for window pointerUp.
+  React.useEffect(() => {
+    window.addEventListener("pointerup", () => {
+      caruselIsMovable.current = false;
+      console.log(caruselIsMovable.current);
+    });
+    return () =>
+      window.removeEventListener("pointerup", () => {
+        caruselIsMovable.current = false;
+        console.log(caruselIsMovable.current);
+      });
+  }, []);
+  //use effect EventListener and cleaner for the caurusel element movement mouse.
   React.useEffect(() => {
     window.addEventListener("mousemove", (e) => {
       moveCarusel(e);
     });
     return () =>
       window.removeEventListener("mousemove", (e) => {
+        moveCarusel(e);
+      });
+  }, []);
+  //use effect EventListener and cleaner for the caurusel element movement finger.
+  React.useEffect(() => {
+    window.addEventListener("pointermove", (e) => {
+      moveCarusel(e);
+    });
+    return () =>
+      window.removeEventListener("pointermove", (e) => {
         moveCarusel(e);
       });
   }, []);
@@ -148,6 +170,7 @@ function Tabs(props: props) {
         left: `${caruselX}px`,
       }}
       onMouseDown={(e) => handleBeginDrag(e)}
+      onPointerDown={(e) => handleBeginDrag(e)}
     >
       <div className="Tabs" ref={lefTabs}>
         {props.tabs.map((element, index) => (
