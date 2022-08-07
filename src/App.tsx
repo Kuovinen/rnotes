@@ -13,8 +13,7 @@ ________________________________________________________________________ STATE*/
   const [tabs, setTabs] = React.useState<string[]>([]);
   const currentTab = React.useRef("notes");
   const initialRender = React.useRef(true);
-  const baseURL =
-    "http://nodejsserverrnotes-env.eba-rvuegut3.us-east-1.elasticbeanstalk.com";
+  const baseURL = "https://rnotesserver.in";
   const baseURLdev = "http://localhost:4000";
   /*______________________________________________________________________________
 ____________________________________________________________________ FUNCTIONS*/
@@ -22,6 +21,7 @@ ____________________________________________________________________ FUNCTIONS*/
   async function getDBdata() {
     const response = await fetch(`${baseURL}/`);
     const data = await response.text();
+    console.log(data);
     const parsedData = JSON.parse(data);
     console.log("got initial data:");
     console.log(parsedData);
