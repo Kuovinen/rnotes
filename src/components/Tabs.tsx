@@ -1,7 +1,8 @@
 import "./Tabs.css";
 import React from "react";
 //props for the tabs container
-interface props {
+interface tabsProps {
+  url: string;
   tabs: string[];
   setNotes: React.Dispatch<
     React.SetStateAction<{ _id: string; payload: string }[]>
@@ -9,7 +10,8 @@ interface props {
   currentTab: { current: string };
 }
 //Props for singular tab component
-interface props2 {
+interface tabProps {
+  url: string;
   title: string;
   setNotes: React.Dispatch<
     React.SetStateAction<{ _id: string; payload: string }[]>
@@ -19,10 +21,10 @@ interface props2 {
 
 /*______________________________________________________________________________
 ________________________________________________________________ TAB COMPONENT*/
-function Tab(props: props2) {
+function Tab(props: tabProps) {
   async function getList() {
     props.currentTab.current = props.title;
-    const response = await fetch("http://localhost:4000/getnotes", {
+    const response = await fetch(`${props.url}/getnotes`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -45,7 +47,7 @@ function Tab(props: props2) {
 }
 /*______________________________________________________________________________
 _____________________________________________________ TABS CONTAINER COMPONENT*/
-function Tabs(props: props) {
+function Tabs(props: tabsProps) {
   const initialX = React.useRef<number>(0); //starting x position of carusel
 
   //starting x position of carusel
@@ -175,6 +177,7 @@ function Tabs(props: props) {
       <div className="Tabs" ref={lefTabs}>
         {props.tabs.map((element, index) => (
           <Tab
+            url={props.url}
             key={index}
             title={element}
             setNotes={props.setNotes}
@@ -185,6 +188,7 @@ function Tabs(props: props) {
       <div className="Tabs">
         {props.tabs.map((element, index) => (
           <Tab
+            url={props.url}
             key={index + 2}
             title={element}
             setNotes={props.setNotes}
@@ -195,6 +199,7 @@ function Tabs(props: props) {
       <div className="Tabs">
         {props.tabs.map((element, index) => (
           <Tab
+            url={props.url}
             key={index + 2}
             title={element}
             setNotes={props.setNotes}

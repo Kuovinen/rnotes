@@ -1,6 +1,10 @@
 import React from "react";
 import "./Menu.css";
-function Menu() {
+interface menuProps {
+  url: string;
+}
+
+function Menu(props: menuProps) {
   console.log("render MENU");
   const [tabName, setTabName] = React.useState<string>("");
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -11,7 +15,7 @@ function Menu() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:4000/addtab", {
+    const response = await fetch(`${props.url}addtab`, {
       method: "POST",
       headers: {
         Accept: "application/json",

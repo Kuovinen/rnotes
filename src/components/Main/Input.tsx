@@ -4,6 +4,7 @@ interface ref {
   current: string;
 }
 interface props {
+  url: string;
   currentTab: ref;
   setNotes: React.Dispatch<
     React.SetStateAction<{ _id: string; payload: string }[]>
@@ -19,7 +20,7 @@ function Input(props: props) {
   }
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const response = await fetch("http://localhost:4000/addnote", {
+    const response = await fetch(`${props.url}/addnote`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -34,7 +35,7 @@ function Input(props: props) {
 
   //used in handle submit to get data and rerender the new notes list
   async function getList() {
-    const response = await fetch("http://localhost:4000/getnotes", {
+    const response = await fetch(`${props.url}/getnotes`, {
       method: "POST",
       headers: {
         Accept: "application/json",

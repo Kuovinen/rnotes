@@ -13,11 +13,14 @@ ________________________________________________________________________ STATE*/
   const [tabs, setTabs] = React.useState<string[]>([]);
   const currentTab = React.useRef("notes");
   const initialRender = React.useRef(true);
+  const baseURL =
+    "http://nodejsserverrnotes-env.eba-rvuegut3.us-east-1.elasticbeanstalk.com";
+  const baseURLdev = "http://localhost:4000";
   /*______________________________________________________________________________
 ____________________________________________________________________ FUNCTIONS*/
   //set tabs
   async function getDBdata() {
-    const response = await fetch("http://localhost:4000/");
+    const response = await fetch(`${baseURL}/`);
     const data = await response.text();
     const parsedData = JSON.parse(data);
     console.log("got initial data:");
@@ -32,7 +35,8 @@ ____________________________________________________________________ FUNCTIONS*/
   }
   //now set notes
   async function getList(value: string) {
-    const response = await fetch("http://localhost:4000/getnotes", {
+    console.log("asking for data on the" + value);
+    const response = await fetch(`${baseURL}/getnotes`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -41,6 +45,7 @@ ____________________________________________________________________ FUNCTIONS*/
       body: JSON.stringify({ payload: value }),
     });
     const data = await response.text();
+    console.log(`got back ${data}`);
     const parsedData = JSON.parse(data);
     console.log("got new notes");
     console.log(parsedData);
@@ -60,9 +65,19 @@ ______________________________________________________________________ EFFECTS*/
 _______________________________________________________________________ RETURN*/
   return (
     <div className="App">
-      <Menu />
-      <Tabs tabs={tabs} setNotes={setNotes} currentTab={currentTab} />
-      <Main notes={notes} currentTab={currentTab} setNotes={setNotes} />
+      <Menu url={baseURL} />
+      <Tabs
+        url={baseURL}
+        tabs={tabs}
+        setNotes={setNotes}
+        currentTab={currentTab}
+      />
+      <Main
+        url={baseURL}
+        notes={notes}
+        currentTab={currentTab}
+        setNotes={setNotes}
+      />
     </div>
   );
 }
