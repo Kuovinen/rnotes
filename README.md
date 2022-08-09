@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+## ∙Full stack note tacking app∙
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+the Front end is written in **TypeScript** using **React**.
+the Back end is written in **JavaScript** using **NodeJs** and **ExpressJs**.
 
-## Available Scripts
+#### Live links:
 
-In the project directory, you can run:
+https://rznotes.netlify.app/ <-front end
+https://rnotesserver.in/ <-back end reroute to an AWS server
 
-### `npm start`
+#### To run the front end locally :<br  />
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+npm install
+npm start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+inside the root directory. Requires NodeJs 14 or higher.
 
-### `npm test`
+#### To run the back end locally :<br  />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm install
+npm start
+```
 
-### `npm run build`
+inside the serverapp directory. Requires NodeJs 14 or higher.
+The server will not run without a 'credentials.env',<br  /> which should have the following structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```javascript
+USRNM = "yourusername";
+PSWD = "yourpassword";
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To actually work, it also needs a proper MongoDb cluster,
+referenced on line 12 in the 'server.js' file. Editing that line and the .env file should be enough to get the back end to work.
+MongoDb setup is outisde the scope of this readme file.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### About:
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The Front end app and a NodeJs server, for storing note data on MongoDb grouped by category.
+Live version of the front end hosted on Netlify, back end hosted on AWS, MongoDb hosted on Atlas.
