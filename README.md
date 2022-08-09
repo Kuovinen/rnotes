@@ -5,7 +5,7 @@ the Back end is written in **JavaScript** using **NodeJs** and **ExpressJs**.
 
 #### Live links:
 
-https://rznotes.netlify.app/ <-front end
+https://rznotes.netlify.app/ <-front end <br />
 https://rnotesserver.in/ <-back end reroute to an AWS server
 
 #### To run the front end locally :<br  />
