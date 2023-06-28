@@ -2,22 +2,24 @@
   min-height: 15%;
   max-height: 25%;
   margin: 0 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--brdrRadius);
   display: flex;
   flex-flow: row wrap;
   gap: 1rem;
   margin-bottom: 1rem;
 }
+
 .makeNoteBtn {
   background: var(--p-green);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--brdrRadius);
   flex: 1;
   font-weight: 1000;
   font-size: 1.5rem;
   cursor: pointer;
   user-select: none;
-  color: var(--p-white);
+  color: var(--p-grey);
+  font-family: "Agdasima", sans-serif;
 }
 .makeNoteBtn:active {
   transform: scale(0.95);
@@ -27,13 +29,17 @@
 }
 .Notetext {
   background: var(--p-grey);
-  border-radius: 0.5rem;
+  border-radius: var(--brdrRadius);
   border: none;
   min-width: 15rem;
   flex: 5;
   font-size: 2rem;
   padding-left: 1rem;
-  box-shadow: 0 0.2rem 0.5rem 0.01rem var(--p-shadow) inset;
+  color: var(--p-font);
+  font-family: "Agdasima", sans-serif;
+}
+.Notetext::placeholder {
+  color: var(--p-green);
 }
 .Notetext:focus {
   outline: none;

@@ -8,16 +8,24 @@ body {
   font-size: 1.5rem;
   font-weight: 1000;
 }
-
+body > * {
+  font-family: "Agdasima", sans-serif;
+  color: var(--p-font);
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 :root {
-  --p-green: #3cc130;
-  --p-black: #181616;
-  --p-shadow: #a2a4a2;
-  --p-white: #ebebeb;
-  --p-grey: #bec2bf;
+  --p-green: rgb(147, 148, 165);
+  --p-black: #383838;
+  --p-shadow: hsla(0, 0%, 0%, 0.2);
+  --p-white: rgb(210, 211, 223);
+  --p-grey: #eeeeee;
+  --p-font: rgb(72, 75, 106);
+  --brdrRadius: 0.25rem;
 }
+/*
+  --p-white: rgb(210, 211, 223);
+*/

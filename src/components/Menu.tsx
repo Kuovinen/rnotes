@@ -42,7 +42,7 @@ function Menu(props: menuProps) {
         value={tabName}
         onChange={(e) => handleInput(e)}
       />
-      <button className="makeTabBtn">MAKE TAB</button>
+      <button className="makeTabBtn">CREATE</button>
     </form>
   );
 }

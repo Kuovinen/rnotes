@@ -5,35 +5,39 @@
   max-height: 60vh;
   width: auto;
   overflow-x: hidden;
-  box-shadow: 0 0.2rem 0.5rem 0.01rem var(--p-shadow) inset;
 }
 .note {
   background: var(--p-white);
   border-radius: 0.5rem;
-  margin: 1rem;
+  margin: 0.5rem;
   height: auto;
-  padding: 1rem;
   font-weight: 400;
+
   display: flex;
   justify-content: space-between;
-  box-shadow: 0 0.2rem 0.5rem 0.01rem var(--p-shadow);
+  overflow: hidden;
+  padding: 0.5rem;
+  transition: 0.5s;
 }
 .note:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.05);
 }
 .nTxt {
   flex: 9;
+  font-size: 1.75rem;
 }
 .nX {
   display: flex;
   margin-left: auto;
 }
 .deleteNote {
-  color: white;
-  height: 2rem;
-  width: 2rem;
-  border-radius: 50%;
+  color: var(--p-grey);
+  height: 200%;
+  width: 3rem;
   border: none;
+  position: relative;
+  top: -50%;
+  right: -25%;
   background: var(--p-green);
   font-weight: bold;
   cursor: pointer;
@@ -43,6 +47,5 @@
   transform: scale(0.8);
 }
 .deleteNote:hover {
-  filter: brightness(1.05);
   color: var(--p-black);
 }

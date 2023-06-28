@@ -3,7 +3,7 @@
   min-height: 60vh;
   width: 94vw;
   margin: 0 auto;
-  border-radius: 1rem;
+  border-radius: var(--brdrRadius);
   overflow: auto;
   overflow-y: hidden;
   min-width: 300px;

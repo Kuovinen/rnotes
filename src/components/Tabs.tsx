@@ -41,7 +41,7 @@ function Tab(props: tabProps) {
 
   return (
     <div className="tab" onClick={getList}>
-      {props.title}
+      {props.title.toUpperCase()}
     </div>
   );
 }
