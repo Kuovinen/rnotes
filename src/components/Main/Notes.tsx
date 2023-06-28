@@ -68,7 +68,6 @@ interface notesProps {
 ______________________________________________________________ NOTES COMPONENT*/
 
 function Notes(props: notesProps) {
-  console.log("rendered NOTES");
   return (
     <div className="Notes">
       {props.notes.map((element: note) => {

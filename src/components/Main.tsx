@@ -14,7 +14,6 @@ interface mainProps {
   >;
 }
 function Main(props: mainProps) {
-  console.log("render -------MAIN");
   return (
     <main className="main">
       {/*List of notes inside currently selected category*/}

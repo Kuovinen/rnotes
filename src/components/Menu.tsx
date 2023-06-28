@@ -2,6 +2,7 @@ import React from "react";
 import "./Menu.css";
 interface menuProps {
   url: string;
+  getDBdata: () => Promise<void>;
 }
 
 function Menu(props: menuProps) {
@@ -14,7 +15,7 @@ function Menu(props: menuProps) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await fetch(`${props.url}addtab`, {
+    await fetch(`${props.url}/addtab`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -22,6 +23,7 @@ function Menu(props: menuProps) {
       },
       body: JSON.stringify({ payload: tabName }),
     });
+    props.getDBdata();
   }
   /*____________________________________________________________________________
   _____________________________________________________________________ RETURN*/

@@ -4,6 +4,7 @@ import Menu from "./components/Menu";
 import Main from "./components/Main";
 import Tabs from "./components/Tabs";
 function App() {
+  console.log("Rendered APp");
   /*____________________________________________________________________________
 ________________________________________________________________________ STATE*/
   const [notes, setNotes] = React.useState<{ _id: string; payload: string }[]>(
@@ -16,18 +17,22 @@ ________________________________________________________________________ STATE*/
   //const baseURLdev = "http://localhost:4000";
   /*____________________________________________________________________________
 ____________________________________________________________________ FUNCTIONS*/
-  //Get TAB titbles from Database as an array of strings
+  //Get TAB titles from Database as an array of strings
   const getDBdata = React.useCallback(async () => {
     const response = await fetch(`${baseURL}/`);
     const data = await response.text();
+    console.log(data);
     const parsedData = JSON.parse(data);
-
-    setTabs(() => [...parsedData]);
+    const refactoredArray = parsedData.sort();
+    setTabs(() => {
+      //The last Tab should always be first in the list
+      return refactoredArray;
+    });
     //if the tabs list came non empy, use first value to request it's notes
     //and assign their value to the state thus displaying them on rerender
-    if (parsedData.length > 0) {
-      currentTab.current = parsedData[0];
-      getList(parsedData[0]);
+    if (refactoredArray.length > 0) {
+      currentTab.current = refactoredArray[0];
+      getList(refactoredArray[0]);
     }
   }, [currentTab]);
   //The function used above, utilises first string in the DBdata array for query
@@ -61,7 +66,7 @@ _______________________________________________________________________ RETURN*/
   return (
     <div className="App">
       {/*TOP INPUT SECTION*/}
-      <Menu url={baseURL} />
+      <Menu url={baseURL} getDBdata={getDBdata} />
       {/*THE CATEGORY TABS*/}
       <Tabs
         url={baseURL}

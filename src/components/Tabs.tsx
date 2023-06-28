@@ -35,8 +35,6 @@ function Tab(props: tabProps) {
     });
     const data = await response.text();
     const parsedData = JSON.parse(data);
-    console.log("got new notes");
-    console.log(parsedData);
     props.setNotes(() => [...parsedData]);
   }
 
