@@ -20,7 +20,7 @@ function Input(props: props) {
   }
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const response = await fetch(`${props.url}/addnote`, {
+    await fetch(`${props.url}/addnote`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -28,9 +28,8 @@ function Input(props: props) {
       },
       body: JSON.stringify({ payload: note, tab: props.currentTab.current }),
     });
-    const data = await response.text();
-    console.log(data);
     await getList();
+    setNote(() => "");
   }
 
   //used in handle submit to get data and rerender the new notes list
@@ -45,8 +44,6 @@ function Input(props: props) {
     });
     const data = await response.text();
     const parsedData = JSON.parse(data);
-    console.log("got new notes");
-    console.log(parsedData);
     props.setNotes(() => [...parsedData]);
   }
   /*____________________________________________________________________________
