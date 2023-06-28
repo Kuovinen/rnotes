@@ -1,15 +1,38 @@
+.carousel {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 4rem;
+  width: 94vw;
+  margin: 0.5rem auto;
+  gap: 0.5rem;
+}
+.carousel > button {
+  border-radius: var(--brdrRadius);
+  border: none;
+  background: var(--p-green);
+  width: 3rem;
+  color: var(--p-grey);
+  font-size: 2rem;
+}
+.carousel > button:hover {
+  filter: brightness(1.05);
+}
 .Tabs {
   margin: 0.5rem 0;
   height: 3rem;
   position: relative;
-  width: 50%;
+  width: 100%;
   display: flex;
+  justify-content: space-evenly;
+  overflow: hidden;
 }
+
 .tab {
   background: var(--p-white);
-  min-width: 40rem;
+  min-width: 45%;
   flex: 1;
-  justify-content: center;
+  justify-content: space-evenly;
   border-radius: var(--brdrRadius);
   padding: 0.5rem;
   margin: 0 0.5rem;
@@ -23,11 +46,7 @@
 .tab:hover {
   filter: brightness(1.2);
 }
-.carousel {
-  position: relative;
-  display: inline-flex;
-  height: 4rem;
-}
+
 .carousel::-webkit-scrollbar {
   display: none;
 }

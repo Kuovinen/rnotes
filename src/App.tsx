@@ -66,6 +66,7 @@ _______________________________________________________________________ RETURN*/
       <Tabs
         url={baseURL}
         tabs={tabs}
+        setTabs={setTabs}
         setNotes={setNotes}
         currentTab={currentTab}
       />
@@ -76,6 +77,7 @@ _______________________________________________________________________ RETURN*/
         currentTab={currentTab}
         setNotes={setNotes}
       />
+      <footer>You currently have {tabs.length} tabs</footer>
     </div>
   );
 }

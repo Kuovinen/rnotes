@@ -18,8 +18,8 @@ code {
 }
 
 :root {
-  --p-green: rgb(147, 148, 165);
-  --p-black: #383838;
+  --p-green: rgb(143, 145, 180);
+  --p-black: rgb(90, 90, 100);
   --p-shadow: hsla(0, 0%, 0%, 0.2);
   --p-white: rgb(210, 211, 223);
   --p-grey: #eeeeee;
@@ -27,5 +27,5 @@ code {
   --brdrRadius: 0.25rem;
 }
 /*
-  --p-white: rgb(210, 211, 223);
+  --p-green: rgb(147, 148, 165);
 */

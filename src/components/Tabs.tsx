@@ -4,6 +4,7 @@ import React from "react";
 interface tabsProps {
   url: string;
   tabs: string[];
+  setTabs: React.Dispatch<React.SetStateAction<string[]>>;
   setNotes: React.Dispatch<
     React.SetStateAction<{ _id: string; payload: string }[]>
   >;
@@ -48,145 +49,28 @@ function Tab(props: tabProps) {
 /*______________________________________________________________________________
 _____________________________________________________ TABS CONTAINER COMPONENT*/
 function Tabs(props: tabsProps) {
-  const initialX = React.useRef<number>(0); //starting x position of carusel
-
-  //starting x position of carusel
-  const caruselIsMovable = React.useRef<boolean>(false);
-  //the curesel container DOM Elem
-  const caru = React.useRef<HTMLDivElement>(null);
-  const initialRender = React.useRef<boolean>(true); //trigger for useEffect
-  const lefTabs = React.useRef<HTMLDivElement>(null);
-  //current carusel X position
-  const [caruselX, setCaruselX] = React.useState<number>(0);
-  const listenerX = React.useRef<number>(0); //same value as above to keep track
-  const windowWidth = (window as any).innerWidth; //device width
-
-  /*____________________________________________________________________________
-  __________________________________________________________________ FUNCTIONS*/
-  //on click down define init X and thus alow movement defined in handler
-  function handleBeginDrag(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    e.stopPropagation();
-    initialX.current = (window as any).event.clientX;
-    caruselIsMovable.current = true;
+  let displayTabs: string[] = [];
+  if (props.tabs.length > 1) {
+    displayTabs = props.tabs.slice(0, 2);
+  } else displayTabs = props.tabs;
+  //Cycle the TAB array to display the next or previous category in the view
+  function changeDisplayedTabs(direction: string) {
+    props.setTabs((original: string[]) => {
+      if (direction === "R") {
+        return [...original.slice(1), original[0]];
+      } else if (direction === "L") {
+        return [original[original.length - 1], ...original.slice(0, -1)];
+      } else return original;
+    });
   }
-
-  //handler callback function, look below for the handler in the useEffect
-  function moveCarusel(e: MouseEvent) {
-    e.stopPropagation();
-    //console.log(caruselX);
-    //if initial click position isn't 0, then I clicked
-    if (caruselIsMovable.current) {
-      const currentX: number = (window as any).event.clientX; //cursor positoon
-      const deltaX = currentX - initialX.current; //amount mouse traveled
-      const speed = 7; //pixels per render
-      setCaruselX((caruselX) => {
-        return deltaX > 0 ? caruselX + speed : caruselX - speed;
-      });
-      listenerX.current =
-        deltaX > 0 ? listenerX.current + speed : listenerX.current - speed;
-      console.log(listenerX.current + "/" + windowWidth);
-      if (listenerX.current >= 0) {
-        if (lefTabs && lefTabs.current) {
-          //move carusles left X amount (equal to left section width)
-          setCaruselX(-lefTabs.current.getBoundingClientRect().width);
-          listenerX.current = -lefTabs.current.getBoundingClientRect().width;
-        }
-      }
-      if (lefTabs && lefTabs.current) {
-        if (
-          listenerX.current <=
-          -lefTabs.current.getBoundingClientRect().width * 2
-        ) {
-          //move carusles left X amount (equal to left section width)
-          setCaruselX(-lefTabs.current.getBoundingClientRect().width);
-          listenerX.current = -lefTabs.current.getBoundingClientRect().width;
-        }
-      }
-    }
-  }
-  /*____________________________________________________________________________
-  ____________________________________________________________________ EFFECTS*/
-  //initial carusel offset left
-  React.useEffect(() => {
-    if (props.tabs.length > 0) {
-      if (initialRender.current && lefTabs && lefTabs.current) {
-        //move carusles left X amount (equal to left section width)
-        setCaruselX(-lefTabs.current.getBoundingClientRect().width);
-        listenerX.current = -lefTabs.current.getBoundingClientRect().width;
-      }
-      initialRender.current = false;
-    }
-  });
-  //use effect EventListener and cleaner for window mouseUp.
-  React.useEffect(() => {
-    window.addEventListener("mouseup", () => {
-      caruselIsMovable.current = false;
-      console.log(caruselIsMovable.current);
-    });
-    return () =>
-      window.removeEventListener("mouseup", () => {
-        caruselIsMovable.current = false;
-        console.log(caruselIsMovable.current);
-      });
-  }, []);
-  //use effect EventListener and cleaner for window pointerUp.
-  React.useEffect(() => {
-    window.addEventListener("pointerup", () => {
-      caruselIsMovable.current = false;
-      console.log(caruselIsMovable.current);
-    });
-    return () =>
-      window.removeEventListener("pointerup", () => {
-        caruselIsMovable.current = false;
-        console.log(caruselIsMovable.current);
-      });
-  }, []);
-  //use effect EventListener and cleaner for the caurusel element movement mouse.
-  React.useEffect(() => {
-    window.addEventListener("mousemove", (e) => {
-      moveCarusel(e);
-    });
-    return () =>
-      window.removeEventListener("mousemove", (e) => {
-        moveCarusel(e);
-      });
-  }, []);
-  //use effect EventListener and cleaner for the caurusel element movement finger.
-  React.useEffect(() => {
-    window.addEventListener("pointermove", (e) => {
-      moveCarusel(e);
-    });
-    return () =>
-      window.removeEventListener("pointermove", (e) => {
-        moveCarusel(e);
-      });
-  }, []);
 
   /*____________________________________________________________________________
   _____________________________________________________________________ RETURN*/
   return (
-    <div
-      className="carousel"
-      ref={caru}
-      style={{
-        left: `${caruselX}px`,
-      }}
-      onMouseDown={(e) => handleBeginDrag(e)}
-      onPointerDown={(e) => handleBeginDrag(e)}
-    >
-      <div className="Tabs" ref={lefTabs}>
-        {props.tabs.map((element, index) => (
-          <Tab
-            url={props.url}
-            key={index}
-            title={element}
-            setNotes={props.setNotes}
-            currentTab={props.currentTab}
-          />
-        ))}
-      </div>
+    <div className="carousel">
+      <button onClick={() => changeDisplayedTabs("R")}>{"<"}</button>
       <div className="Tabs">
-        {props.tabs.map((element, index) => (
+        {displayTabs.map((element, index) => (
           <Tab
             url={props.url}
             key={index + 2}
@@ -196,17 +80,7 @@ function Tabs(props: tabsProps) {
           />
         ))}
       </div>
-      <div className="Tabs">
-        {props.tabs.map((element, index) => (
-          <Tab
-            url={props.url}
-            key={index + 2}
-            title={element}
-            setNotes={props.setNotes}
-            currentTab={props.currentTab}
-          />
-        ))}
-      </div>
+      <button onClick={() => changeDisplayedTabs("L")}>{">"}</button>
     </div>
   );
 }

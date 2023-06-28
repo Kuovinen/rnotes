@@ -6,7 +6,6 @@ interface menuProps {
 
 function Menu(props: menuProps) {
   const [tabName, setTabName] = React.useState<string>("");
-
   /*____________________________________________________________________________
   __________________________________________________________________ FUNCTIONS*/
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -24,6 +23,7 @@ function Menu(props: menuProps) {
       body: JSON.stringify({ payload: tabName }),
     });
     const data = await response.text();
+    console.log(data);
   }
   /*____________________________________________________________________________
   _____________________________________________________________________ RETURN*/

@@ -6,6 +6,13 @@
   overflow-x: hidden;
   padding-top: 1rem;
 }
+footer {
+  width: 94vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  color: var(--p-white);
+}
 /* width */
 ::-webkit-scrollbar {
   width: 0.5rem;
