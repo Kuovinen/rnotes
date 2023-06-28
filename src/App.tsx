@@ -4,8 +4,7 @@ import Menu from "./components/Menu";
 import Main from "./components/Main";
 import Tabs from "./components/Tabs";
 function App() {
-  console.log("render APP!----------------");
-  /*______________________________________________________________________________
+  /*____________________________________________________________________________
 ________________________________________________________________________ STATE*/
   const [notes, setNotes] = React.useState<{ _id: string; payload: string }[]>(
     []
@@ -14,28 +13,25 @@ ________________________________________________________________________ STATE*/
   const currentTab = React.useRef("notes");
   const initialRender = React.useRef(true);
   const baseURL = "https://rnotesserver.in";
-  const baseURLdev = "http://localhost:4000";
-  /*______________________________________________________________________________
+  //const baseURLdev = "http://localhost:4000";
+  /*____________________________________________________________________________
 ____________________________________________________________________ FUNCTIONS*/
-  //set tabs
-  async function getDBdata() {
+  //Get TAB titbles from Database as an array of strings
+  const getDBdata = React.useCallback(async () => {
     const response = await fetch(`${baseURL}/`);
     const data = await response.text();
-    console.log(data);
     const parsedData = JSON.parse(data);
-    console.log("got initial data:");
-    console.log(parsedData);
 
     setTabs(() => [...parsedData]);
     //if the tabs list came non empy, use first value to request it's notes
+    //and assign their value to the state thus displaying them on rerender
     if (parsedData.length > 0) {
       currentTab.current = parsedData[0];
       getList(parsedData[0]);
     }
-  }
-  //now set notes
+  }, [currentTab]);
+  //The function used above, utilises first string in the DBdata array for query
   async function getList(value: string) {
-    console.log("asking for data on the" + value);
     const response = await fetch(`${baseURL}/getnotes`, {
       method: "POST",
       headers: {
@@ -45,33 +41,35 @@ ____________________________________________________________________ FUNCTIONS*/
       body: JSON.stringify({ payload: value }),
     });
     const data = await response.text();
-    console.log(`got back ${data}`);
     const parsedData = JSON.parse(data);
-    console.log("got new notes");
-    console.log(parsedData);
+    //parsedData is an Array of Mongo objects in the style of
+    //{id:x,payload:noteText,tab:categoryName}
     setNotes(() => [...parsedData]);
   }
-  /*______________________________________________________________________________
+  /*____________________________________________________________________________
 ______________________________________________________________________ EFFECTS*/
-  //Get inital data for page load
+  //Get inital data for page load, empty dependency array, so it happens once
   React.useEffect(() => {
     if (initialRender.current) {
       getDBdata();
       initialRender.current = false;
     }
-  }, []);
+  }, [getDBdata]);
 
-  /*______________________________________________________________________________
+  /*____________________________________________________________________________
 _______________________________________________________________________ RETURN*/
   return (
     <div className="App">
+      {/*TOP INPUT SECTION*/}
       <Menu url={baseURL} />
+      {/*THE CATEGORY TABS*/}
       <Tabs
         url={baseURL}
         tabs={tabs}
         setNotes={setNotes}
         currentTab={currentTab}
       />
+      {/*THE NOTES AND THEIR INPUT AT THE BOTTOM*/}
       <Main
         url={baseURL}
         notes={notes}

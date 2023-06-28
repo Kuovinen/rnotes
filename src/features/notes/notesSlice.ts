@@ -7,7 +7,7 @@ interface CounterState {
 
 // Define the initial state using that type
 const initialState: CounterState = {
-  value: "Hello",
+  value: "string",
 };
 
 export const counterNote = createSlice({

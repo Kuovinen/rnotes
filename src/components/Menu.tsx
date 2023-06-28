@@ -5,13 +5,13 @@ interface menuProps {
 }
 
 function Menu(props: menuProps) {
-  console.log("render MENU");
   const [tabName, setTabName] = React.useState<string>("");
+
+  /*____________________________________________________________________________
+  __________________________________________________________________ FUNCTIONS*/
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     setTabName(e.target.value);
   }
-  /*____________________________________________________________________________
-  __________________________________________________________________ FUNCTIONS*/
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -24,7 +24,6 @@ function Menu(props: menuProps) {
       body: JSON.stringify({ payload: tabName }),
     });
     const data = await response.text();
-    console.log(data);
   }
   /*____________________________________________________________________________
   _____________________________________________________________________ RETURN*/
