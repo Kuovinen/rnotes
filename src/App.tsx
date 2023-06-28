@@ -82,7 +82,23 @@ _______________________________________________________________________ RETURN*/
         currentTab={currentTab}
         setNotes={setNotes}
       />
-      <footer>You currently have {tabs.length} tabs</footer>
+      <footer>
+        <span>Available categories:</span>&nbsp;
+        <span>
+          {tabs.map((element, index) => (
+            <span
+              style={
+                element === tabs[0]
+                  ? { color: "var(--p-grey)", textDecoration: "underline" }
+                  : {}
+              }
+            >
+              {(index ? ", " : "") + element.toUpperCase()}
+            </span>
+          ))}
+        </span>
+        .
+      </footer>
     </div>
   );
 }

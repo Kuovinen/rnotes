@@ -12,6 +12,7 @@ footer {
   display: flex;
   justify-content: flex-end;
   color: var(--p-white);
+  font-weight: 100;
 }
 /* width */
 ::-webkit-scrollbar {
