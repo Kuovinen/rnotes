@@ -18,19 +18,14 @@ interface note {
 __________________________________________________________________ SINGLE NOTE*/
 function Note(props: noteProps) {
   async function handleDelete(id: string) {
-    console.log("Should delete: " + id + "from" + props.cur.current);
-    const response = await fetch(
-      `${props.url}/removenote/${props.cur.current}/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.text();
-    console.log(data);
+    await fetch(`${props.url}/removenote/${props.cur.current}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
     await getList();
   }
   //used in handle submit to get data and rerender the new notes list
@@ -45,8 +40,6 @@ function Note(props: noteProps) {
     });
     const data = await response.text();
     const parsedData = JSON.parse(data);
-    console.log("got new notes");
-    console.log(parsedData);
     props.setNotes(() => [...parsedData]);
   }
   /*______________________________________________________________________________

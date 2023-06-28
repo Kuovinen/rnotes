@@ -14,7 +14,7 @@ function Menu(props: menuProps) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const response = await fetch(`${props.url}addtab`, {
+    await fetch(`${props.url}addtab`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -22,8 +22,6 @@ function Menu(props: menuProps) {
       },
       body: JSON.stringify({ payload: tabName }),
     });
-    const data = await response.text();
-    console.log(data);
   }
   /*____________________________________________________________________________
   _____________________________________________________________________ RETURN*/
