@@ -4,6 +4,7 @@
   width: 100vw;
   min-width: 320px;
   overflow-x: hidden;
+  padding-top: 1rem;
 }
 /* width */
 ::-webkit-scrollbar {

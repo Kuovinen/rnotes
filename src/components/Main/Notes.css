@@ -20,7 +20,7 @@
   transition: 0.5s;
 }
 .note:hover {
-  filter: brightness(1.05);
+  filter: brightness(0.97);
 }
 .nTxt {
   flex: 9;
